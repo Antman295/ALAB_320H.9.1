@@ -5,7 +5,7 @@ import Input from './components/Input'
 import './App.css'
 
 function App() {
-  const [task, setTask] = useState(0)
+  const [task, setTask] = useState("")
   const [list, dispatch] = useReducer(listReducer, {count: 0});
 
 
