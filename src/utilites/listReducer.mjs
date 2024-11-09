@@ -1,11 +1,7 @@
 export default function reducer(state, {type, payload}) {
-    console.log("Reducer received payload:", payload); // Log the payload here
-
     switch(type) {
         case "add_task" : {
             const {task} = payload;
-            console.log("Task to add:", task); // Log task to check if it's correct
-
             if (task  === "") {
                 return state;
             }
@@ -20,11 +16,11 @@ export default function reducer(state, {type, payload}) {
             });
             if (taskExist) return state;
 
-            return [{task: task}, ...state];
+            return [{task}, ...state];
 
         }
         case "remove_task" : {
-            return state.filter((s) => s.task !== task);
+            return state.filter((s) => s.task !== payload.task);
         }
 
         default:
