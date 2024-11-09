@@ -1,6 +1,6 @@
-export default function AddButton({task, dispatch, type, payload}) {
+export default function AddButton({task, dispatch}) {
     return (
-        <button onClick={() => dispatch({ type: "add_task", payload: {type: type, payload: payload}})}
-        >{task}</button>
+        <button onClick={() => dispatch({ type: "add_task", payload: {task}})}
+        >Add</button>
     )
 }

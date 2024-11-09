@@ -1,8 +1,9 @@
-export default function Input({ state, setTask }) {
+export default function Input({ task, setTask }) {
     return (
         <input 
         type="text"
-        value={state}
+        value={task}
+        placeholder="Add Task"
         onChange={(e) => setTask(e.target.value)}/>
     )
 }

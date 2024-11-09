@@ -1,10 +1,9 @@
-function List({ tasks = [], onDelete}) {
+function List({ tasks = []}) {
     return (
         <ul>
             {tasks.map((task, index) => (
                 <li key={index}>
-                    {task}
-                    <button onClick={() => onDelete(index)}>Delete</button>
+                    {task.task}
                 </li>
             ))}
         </ul>
