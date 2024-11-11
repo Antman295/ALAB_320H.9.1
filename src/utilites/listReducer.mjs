@@ -23,6 +23,12 @@ export default function reducer(state, {type, payload}) {
             return state.filter((s) => s.task !== payload);
         }
 
+        case "edit_task" : {
+            const {editedTask} = payload;
+
+            return state.map((task) => 
+            task.task === task ? {...task, task: editedTask}: task);
+        }
         default:
             return state;
     }
