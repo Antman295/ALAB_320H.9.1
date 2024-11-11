@@ -20,7 +20,7 @@ export default function reducer(state, {type, payload}) {
 
         }
         case "remove_task" : {
-            return state.filter((s) => s.task !== payload.task);
+            return state.filter((s) => s.task !== payload);
         }
 
         default:
