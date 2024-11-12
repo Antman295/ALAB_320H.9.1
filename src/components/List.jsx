@@ -1,26 +1,27 @@
 import { useState } from "react";
 import DeleteButton from "./DeleteButton";
-import EditButton from "./EditButton";
 
 function List({ tasks, dispatch}) {
 
+    const [editTaskId, setEditTaskId] = useState(null);
     const [newTask, setNewTask] = useState("");
 
     const handleChange = (task) => {
+        setEditTaskId(task.id);
         setNewTask(task.task);
     }
 
-    const handleSave = (task) => {
-        dispatch({ type: "edit_task", payload: {task, newTask}});
-        setNewTask(null);
+    const handleSave = (taskId) => {
+        dispatch({ type: "edit_task", payload: {taskId, newTask}});
+        setEditTaskId(null);
+        setNewTask("");
     }
-
 
     return (
         <ul>
             {tasks.map((task, index) => (
                 <li key={index}>
-                    {setNewTask === task.task ? (
+                    {editTaskId === task.id ? (
                         <>
                         <input
                             type="text"

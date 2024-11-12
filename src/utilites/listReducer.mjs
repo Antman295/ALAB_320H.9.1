@@ -1,4 +1,7 @@
+let idCounter = 0;
+
 export default function reducer(state, {type, payload}) {
+
     switch(type) {
         case "add_task" : {
             const {task} = payload;
@@ -16,7 +19,7 @@ export default function reducer(state, {type, payload}) {
             });
             if (taskExist) return state;
 
-            return [{task}, ...state];
+            return [{id: idCounter++, task}, ...state];
 
         }
         case "remove_task" : {
@@ -24,10 +27,9 @@ export default function reducer(state, {type, payload}) {
         }
 
         case "edit_task" : {
-            const {editedTask} = payload;
-
+            const {taskId, newTask} = payload;
             return state.map((task) => 
-            task.task === task ? {...task, task: editedTask}: task);
+            task.id === taskId ? {...task, task: newTask}: task);
         }
         default:
             return state;
