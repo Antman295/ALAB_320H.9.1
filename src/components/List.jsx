@@ -5,6 +5,7 @@ function List({ tasks, dispatch}) {
 
     const [editTaskId, setEditTaskId] = useState(null);
     const [newTask, setNewTask] = useState("");
+    const [taskDone, setTaskDone] = useState({});
 
     const handleChange = (task) => {
         setEditTaskId(task.id);
@@ -17,31 +18,46 @@ function List({ tasks, dispatch}) {
         setNewTask("");
     }
 
+    const handleTaskDone = (taskId) => {
+        setTaskDone((prev) => ({
+            ...prev,
+            [taskId]: !prev[taskId],
+        }));
+    }
+
     return (
         <ul>
-            {tasks.map((task, index) => (
-                <li key={index}>
+            {tasks.map((task) => (
+                <li key={task.id}>
+                    <input
+                        type="checkbox"
+                        checked={!!taskDone[task.id]}
+                        onChange={() => handleTaskDone(task.id)}
+                    />
+                    {" "}
+
                     {editTaskId === task.id ? (
                         <>
-                        <input
-                            type="text"
-                            value={newTask}
-                            onChange={(e) => setNewTask(e.target.value)}
+                            <input
+                                type="text"
+                                value={newTask}
+                                onChange={(e) => setNewTask(e.target.value)}
                             />
                             <button onClick={() => handleSave(task.id)}>Save</button>
-                            </>
-                            ):(
-                            <>
-                    {task.task}
-                    {' | '}
-                    
-                    <DeleteButton task={task} dispatch={dispatch}/>
-                    {' '}
-                    <button onClick={() => handleChange(task)}>Edit</button>
-                    </>
+                        </>
+                    ) : (
+                        <>
+                            {task.task} {" | "}
+                            <DeleteButton
+                                task={task}
+                                dispatch={dispatch}
+                                disabled={!taskDone[task.id]}
+                            />
+                            {" "}
+                            <button onClick={() => handleChange(task)}>Edit</button>
+                        </>
                     )}
                 </li>
-                
             ))}
         </ul>
     );
